@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../../lib/appFetch'
 import { useCallback, useEffect, useState } from 'react'
 import { ArrowDownUp, Loader2, QrCode, RefreshCw } from 'lucide-react'
 import { QRCodeSVG } from 'qrcode.react'

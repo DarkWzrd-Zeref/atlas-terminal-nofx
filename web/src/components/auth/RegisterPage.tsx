@@ -136,7 +136,7 @@ export function RegisterPage() {
           <div className="flex justify-center mb-6">
             <div className="relative">
               <img
-                src="/icons/nofx.svg"
+                src={`${import.meta.env.BASE_URL}icons/nofx.svg`}
                 alt="NoFx Logo"
                 className="w-16 h-16 object-contain relative z-10 opacity-90"
               />

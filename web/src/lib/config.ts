@@ -1,3 +1,4 @@
+import { appFetch as fetch } from './appFetch'
 export interface SystemConfig {
   initialized: boolean
   beta_mode?: boolean

@@ -25,6 +25,7 @@ nofx_test
 
 # Test files
 *_test.go
+!trader/atlas_gate_test.go
 test_*
 
 # Documentation

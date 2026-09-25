@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../../lib/appFetch'
 import React, { useState, useEffect } from 'react'
 import { QRCodeSVG } from 'qrcode.react'
 import { Trash2, Brain, ExternalLink } from 'lucide-react'
@@ -274,7 +275,7 @@ function ModelSelectionStep({
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center overflow-hidden">
                 <img
-                  src="/icons/claw402.png"
+                  src={`${import.meta.env.BASE_URL}icons/claw402.png`}
                   alt="Claw402"
                   width={40}
                   height={40}
@@ -528,7 +529,7 @@ function Claw402ConfigForm({
         }}
       >
         <div className="w-14 h-14 mx-auto rounded-2xl flex items-center justify-center mb-3 overflow-hidden">
-          <img src="/icons/claw402.png" alt="Claw402" width={56} height={56} />
+          <img src={`${import.meta.env.BASE_URL}icons/claw402.png`} alt="Claw402" width={56} height={56} />
         </div>
         <a
           href="https://claw402.ai"

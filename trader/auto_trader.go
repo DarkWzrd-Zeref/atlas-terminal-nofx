@@ -2,6 +2,7 @@ package trader
 
 import (
 	"fmt"
+	"os"
 	"github.com/ethereum/go-ethereum/crypto"
 	"nofx/kernel"
 	"nofx/logger"
@@ -455,6 +456,9 @@ func (at *AutoTrader) reloadStrategyConfigIfChanged() error {
 
 // Run runs the automatic trading main loop
 func (at *AutoTrader) Run() error {
+	if os.Getenv("ATLAS_PAPER_ONLY") == "true" {
+		return fmt.Errorf("Atlas Terminal is paper-only: NOFX live execution is disabled; use Freqtrade dry-run")
+	}
 	at.isRunningMutex.Lock()
 	at.isRunning = true
 	at.isRunningMutex.Unlock()

@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../appFetch'
 import { API_BASE, handleJSONResponse } from './helpers'
 
 export interface GeneratedWallet {

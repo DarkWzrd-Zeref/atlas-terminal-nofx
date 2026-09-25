@@ -8,16 +8,16 @@ interface IconProps {
 
 // Local icon path mapping
 const ICON_PATHS: Record<string, string> = {
-  binance: '/exchange-icons/binance.jpg',
-  bybit: '/exchange-icons/bybit.png',
-  okx: '/exchange-icons/okx.svg',
-  bitget: '/exchange-icons/bitget.svg',
-  gate: '/exchange-icons/gate.svg',
-  kucoin: '/exchange-icons/kucoin.svg',
-  hyperliquid: '/exchange-icons/hyperliquid.png',
-  aster: '/exchange-icons/aster.svg',
-  lighter: '/exchange-icons/lighter.png',
-  indodax: '/exchange-icons/indodax.png',
+  binance: `${import.meta.env.BASE_URL}exchange-icons/binance.jpg`,
+  bybit: `${import.meta.env.BASE_URL}exchange-icons/bybit.png`,
+  okx: `${import.meta.env.BASE_URL}exchange-icons/okx.svg`,
+  bitget: `${import.meta.env.BASE_URL}exchange-icons/bitget.svg`,
+  gate: `${import.meta.env.BASE_URL}exchange-icons/gate.svg`,
+  kucoin: `${import.meta.env.BASE_URL}exchange-icons/kucoin.svg`,
+  hyperliquid: `${import.meta.env.BASE_URL}exchange-icons/hyperliquid.png`,
+  aster: `${import.meta.env.BASE_URL}exchange-icons/aster.svg`,
+  lighter: `${import.meta.env.BASE_URL}exchange-icons/lighter.png`,
+  indodax: `${import.meta.env.BASE_URL}exchange-icons/indodax.png`,
 }
 
 // Generic icon component

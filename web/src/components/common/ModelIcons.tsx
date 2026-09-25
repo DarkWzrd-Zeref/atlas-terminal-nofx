@@ -27,31 +27,31 @@ export const getModelIcon = (modelType: string, props: IconProps = {}) => {
 
   switch (type) {
     case 'deepseek':
-      iconPath = '/icons/deepseek.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/deepseek.svg`
       break
     case 'qwen':
-      iconPath = '/icons/qwen.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/qwen.svg`
       break
     case 'claude':
-      iconPath = '/icons/claude.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/claude.svg`
       break
     case 'kimi':
-      iconPath = '/icons/kimi.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/kimi.svg`
       break
     case 'gemini':
-      iconPath = '/icons/gemini.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/gemini.svg`
       break
     case 'grok':
-      iconPath = '/icons/grok.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/grok.svg`
       break
     case 'openai':
-      iconPath = '/icons/openai.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/openai.svg`
       break
     case 'minimax':
-      iconPath = '/icons/minimax.svg'
+      iconPath = `${import.meta.env.BASE_URL}icons/minimax.svg`
       break
     case 'claw402':
-      iconPath = '/icons/claw402.png'
+      iconPath = `${import.meta.env.BASE_URL}icons/claw402.png`
       break
     default:
       return null

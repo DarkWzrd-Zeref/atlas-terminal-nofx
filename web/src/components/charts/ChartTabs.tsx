@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../../lib/appFetch'
 import { useState, useEffect, useRef } from 'react'
 import { EquityChart } from './EquityChart'
 import { AdvancedChart } from './AdvancedChart'

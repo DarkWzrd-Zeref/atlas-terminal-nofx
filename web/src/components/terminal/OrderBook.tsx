@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../../lib/appFetch'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { demoSeedPrice, demoTick } from '../../lib/demo/demoUniverse'
 

@@ -1,3 +1,4 @@
+import { appFetch as fetch } from './appFetch'
 export interface EncryptedPayload {
   wrappedKey: string // RSA-OAEP(K)
   iv: string // 12 bytes

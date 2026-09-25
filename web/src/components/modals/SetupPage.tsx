@@ -141,7 +141,7 @@ export function SetupPage() {
               <div className="relative">
                 <div className="absolute -inset-4 bg-nofx-gold/20 rounded-full blur-2xl" />
                 <img
-                  src="/icons/nofx.svg"
+                  src={`${import.meta.env.BASE_URL}icons/nofx.svg`}
                   alt="NOFX"
                   className="w-14 h-14 relative z-10"
                 />

@@ -5,6 +5,7 @@ if [ "${RAILWAY_VOLUME_MOUNT_PATH:-}" != /app/data ]; then
     exit 1
 fi
 export PORT=${PORT:-8080}
+export ATLAS_PAPER_ONLY=true
 umask 077
 mkdir -p /app/data/keys
 test -f /app/data/keys/rsa.pem || openssl genrsa -traditional -out /app/data/keys/rsa.pem 2048 2>/dev/null

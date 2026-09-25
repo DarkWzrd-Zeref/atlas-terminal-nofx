@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../lib/appFetch'
 import { useState, useEffect } from 'react'
 
 interface GitHubStats {

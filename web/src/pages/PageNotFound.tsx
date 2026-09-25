@@ -29,7 +29,7 @@ export function PageNotFound() {
                     </p>
 
                     <a
-                        href="/"
+                        href={import.meta.env.BASE_URL}
                         className="flex items-center gap-2 px-6 py-3 bg-nofx-gold text-nofx-bg font-bold text-sm uppercase tracking-widest rounded hover:bg-nofx-gold-highlight transition-all shadow-lg group mt-4"
                     >
                         <Home size={16} />

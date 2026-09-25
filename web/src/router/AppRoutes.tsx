@@ -74,7 +74,7 @@ function LoadingScreen() {
     >
       <div className="text-center">
         <img
-          src="/icons/nofx.svg"
+          src={`${import.meta.env.BASE_URL}icons/nofx.svg`}
           alt="NoFx Logo"
           className="w-16 h-16 mx-auto mb-4 animate-pulse"
         />

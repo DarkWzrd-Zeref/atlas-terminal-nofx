@@ -58,7 +58,7 @@ export class HttpClient {
   constructor() {
     // Create axios instance
     this.axiosInstance = axios.create({
-      baseURL: '/',
+      baseURL: import.meta.env.BASE_URL,
       timeout: 30000,
       headers: {
         'Content-Type': 'application/json',
@@ -159,13 +159,13 @@ export class HttpClient {
 
       // Only redirect if not already on login page
       if (!window.location.pathname.includes('/login')) {
-        const returnUrl = window.location.pathname + window.location.search
+        const returnUrl = window.location.pathname.slice(import.meta.env.BASE_URL.replace(/\/$/, '').length) + window.location.search
         if (returnUrl !== '/login' && returnUrl !== '/') {
           sessionStorage.setItem('returnUrl', returnUrl)
         }
 
         sessionStorage.setItem('from401', 'true')
-        window.location.href = '/login'
+        window.location.href = import.meta.env.BASE_URL + 'login'
 
         // Return pending promise
         return new Promise(() => {})

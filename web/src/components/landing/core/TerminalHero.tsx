@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../../../lib/appFetch'
 import { motion } from 'framer-motion'
 import { ArrowRight, Shield, Activity, CircuitBoard, Wifi, Globe, Zap, Star, GitFork, Users, MessageCircle } from 'lucide-react'
 import { useState, useEffect } from 'react'

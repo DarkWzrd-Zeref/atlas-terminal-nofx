@@ -1,3 +1,4 @@
+import { appFetch as fetch } from '../../lib/appFetch'
 import { useState, useEffect, useCallback } from 'react'
 import { Shield, TrendingUp, AlertTriangle, Activity, Box, ChevronDown, ChevronUp } from 'lucide-react'
 import type { GridRiskInfo } from '../../types'

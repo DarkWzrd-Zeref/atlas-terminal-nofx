@@ -39,6 +39,13 @@ func NewServer(traderManager *manager.TraderManager, st *store.Store, cryptoServ
 
 	// Enable CORS
 	router.Use(corsMiddleware())
+	router.Use(func(c *gin.Context) {
+		if os.Getenv("ATLAS_PAPER_ONLY") == "true" && c.Request.Method == http.MethodPost && strings.HasPrefix(c.Request.URL.Path, "/api/traders/") && (strings.HasSuffix(c.Request.URL.Path, "/start") || strings.HasSuffix(c.Request.URL.Path, "/close-position")) {
+			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"error": "NOFX live execution is disabled in Atlas Terminal; use Freqtrade paper trading"})
+			return
+		}
+		c.Next()
+	})
 
 	// Create crypto handler
 	cryptoHandler := NewCryptoHandler(cryptoService)
