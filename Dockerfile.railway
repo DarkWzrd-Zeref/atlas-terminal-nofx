@@ -1,40 +1,38 @@
-# Railway All-in-One: Reuse existing GHCR images
-# Extract content from existing images and merge into a single container
+# Build the actual owned source instead of moving prebuilt application images.
+FROM alpine:3.22 AS ta-lib-builder
+RUN apk add --no-cache wget tar make gcc g++ musl-dev autoconf automake
+RUN wget https://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz \
+    && tar -xzf ta-lib-0.4.0-src.tar.gz \
+    && cd ta-lib && ./configure --prefix=/usr/local && make && make install
 
-# Extract binary from backend image
-FROM ghcr.io/nofxaios/nofx/nofx-backend:latest AS backend
-
-# Extract static files from frontend image
-FROM ghcr.io/nofxaios/nofx/nofx-frontend:latest AS frontend
-
-# Final image
-FROM alpine:latest
-
-RUN apk add --no-cache ca-certificates tzdata sqlite nginx openssl gettext
-
-# Copy backend binary
-COPY --from=backend /app/nofx /app/nofx
-
-# Copy TA-Lib libraries
-COPY --from=backend /usr/local/lib/libta_lib* /usr/local/lib/
-RUN ldconfig /usr/local/lib 2>/dev/null || true
-
-# Copy frontend static files
-COPY --from=frontend /usr/share/nginx/html /usr/share/nginx/html
-
+FROM golang:1.25.11-alpine AS backend-builder
+RUN apk add --no-cache git make gcc g++ musl-dev
+COPY --from=ta-lib-builder /usr/local /usr/local
 WORKDIR /app
-RUN mkdir -p /app/data
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=1 GOOS=linux CGO_CFLAGS="-D_LARGEFILE64_SOURCE" \
+    go build -trimpath -ldflags="-s -w" -o /app/nofx .
 
-# Startup script (includes nginx config generation)
+FROM node:22-alpine AS frontend-builder
+WORKDIR /build
+COPY web/package*.json ./
+RUN npm ci
+COPY web/ ./
+RUN npm run build
+
+FROM alpine:3.22
+RUN apk add --no-cache ca-certificates tzdata sqlite nginx openssl libstdc++
+COPY --from=ta-lib-builder /usr/local/lib/libta_lib.so* /usr/local/lib/
+COPY --from=backend-builder /app/nofx /app/nofx
+COPY --from=frontend-builder /build/dist /usr/share/nginx/html
+COPY LICENSE /app/LICENSE
 COPY railway/start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-
-ENV DB_PATH=/app/data/data.db
-
-# Railway automatically sets the PORT environment variable
+RUN chmod +x /app/start.sh && mkdir -p /app/data /run/nginx
+WORKDIR /app
+ENV DB_TYPE=sqlite DB_PATH=/app/data/data.db EXPERIENCE_IMPROVEMENT=false
 EXPOSE 8080
-
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT:-8080}/health || exit 1
-
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 \
+    CMD wget -q -O /dev/null http://127.0.0.1:8081/api/health || exit 1
 CMD ["/app/start.sh"]
